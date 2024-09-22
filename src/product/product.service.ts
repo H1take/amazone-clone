@@ -18,36 +18,37 @@ export class ProductService {
   ) {}
 
   async getAll(dto: GetAllProductDto = {}) {
-    const { sort, searchItem } = dto;
+    const { sort, searchTerm } = dto;
 
     const prismaSort: Prisma.ProductOrderByWithRelationInput[] = [];
 
-    if (sort === EnumProductSort.LOW_PRICE) prismaSort.push({ price: 'asc' });
+    if (sort === EnumProductSort.LOW_PRICE) 
+      prismaSort.push({ price: 'asc' });
     else if (sort === EnumProductSort.HIGH_PRICE)
       prismaSort.push({ price: 'desc' });
     else if (sort === EnumProductSort.OLDEST)
       prismaSort.push({ createAt: 'asc' });
-    else prismaSort.push({ createAt: 'desc' });
+    else if (sort === EnumProductSort.NEWEST)
+      prismaSort.push({ createAt: 'desc' });
 
-    const prismaSearchTermFilter: Prisma.ProductWhereInput = searchItem
+    const prismaSearchTermFilter: Prisma.ProductWhereInput = searchTerm
       ? {
           OR: [
-            {
-              category: {
+              { category: {
                 name: {
-                  contains: searchItem,
+                  contains: searchTerm,
                   mode: 'insensitive',
                 },
-              },
-              name: {
-                contains: searchItem,
+              } },
+              { name: {
+                contains: searchTerm,
                 mode: 'insensitive',
-              },
-              description: {
-                contains: searchItem,
+              } },
+              { description: {
+                contains: searchTerm,
                 mode: 'insensitive',
-              },
-            },
+              } },
+            
           ],
         }
       : {};
