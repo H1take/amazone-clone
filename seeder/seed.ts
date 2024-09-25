@@ -17,38 +17,38 @@ const createProducts = async (quantity: number) => {
         name: productName,
         slug: faker.helpers.slugify(productName).toLowerCase(),
         description: faker.commerce.productDescription(),
-        price: +faker.commerce.price(10, 999, 0),
+        price: +faker.commerce.price({min: 10, max: 999, dec: 0}),
         images: Array.from({
-          length: faker.datatype.number({ min: 2, max: 6 }),
-        }).map(() => faker.image.imageUrl(500, 500)),
+          length: faker.number.int({ min: 2, max: 6 }),
+        }).map(() => `/uploads/NO_PHOTO_YET.PNG`),
         category: {
           create: {
             name: categoryName,
             slug: faker.helpers.slugify(categoryName).toLowerCase(),
           },
         },
-        // reviews: {
-        //     create: [
-        //         {
-        //             rating: faker.datatype.number({ min: 1, max: 5}),
-        //             text: faker.lorem.paragraph(),
-        //             user: {
-        //                 connect: {
-        //                     id: 1
-        //                 }
-        //             }
-        //         },
-        //         {
-        //             rating: faker.datatype.number({ min: 1, max: 5}),
-        //             text: faker.lorem.paragraph(),
-        //             user: {
-        //                 connect: {
-        //                     id: 1
-        //                 }
-        //             }
-        //         }
-        //     ]
-        // }
+        reviews: {
+            create: [
+                {
+                    rating: faker.number.int({ min: 1, max: 5}),
+                    text: faker.lorem.paragraph(),
+                    user: {
+                        connect: {
+                            id: 1
+                        }
+                    }
+                },
+                {
+                    rating: faker.number.int({ min: 1, max: 5}),
+                    text: faker.lorem.paragraph(),
+                    user: {
+                        connect: {
+                            id: 1
+                        }
+                    }
+                }
+            ]
+        }
       },
     });
     products.push(product);

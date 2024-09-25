@@ -15,6 +15,8 @@ model User {
   email    String @unique
   password String
 
+  isAdmin Boolean @default(false) @map("is_admin")
+
   name       String @unique
   avatarPath String @default("/uploads/deafault-avatar.png") @map("avatar_path")
 
@@ -95,7 +97,7 @@ model Order {
 
   status EnumOrderStatus @default(PENDING)
 
-  items  OrderItem[]
+  items OrderItem[]
   total Int
 
   user   User @relation(fields: [userId], references: [id])
