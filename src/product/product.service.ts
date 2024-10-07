@@ -46,7 +46,7 @@ export class ProductService {
 
 		if (dto.searchTerm) filters.push(this.getSearchTermFilter(dto.searchTerm))
 
-		if (dto.raitings.length)
+		if (dto.raitings)
 			filters.push(
 				this.getRaitingFilter(dto.raitings.split('|').map(raiting => +raiting))
 			)

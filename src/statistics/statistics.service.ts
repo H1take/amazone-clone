@@ -6,9 +6,9 @@ export class StatisticsService {
 	constructor(private prisma: PrismaService) {}
 
 	async getMain() {
-		const ordersCount = this.prisma.order.count()
-		const reviewsCount = this.prisma.review.count()
-		const usersCount = this.prisma.user.count()
+		const ordersCount = await this.prisma.order.count()
+		const reviewsCount = await this.prisma.review.count()
+		const usersCount = await this.prisma.user.count()
 		const totalAmount = await this.prisma.order.aggregate({
 			_sum: {
 				total: true
