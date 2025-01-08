@@ -46,9 +46,9 @@ export class ProductService {
 
 		if (dto.searchTerm) filters.push(this.getSearchTermFilter(dto.searchTerm))
 
-		if (dto.raitings)
+		if (dto.ratings)
 			filters.push(
-				this.getRaitingFilter(dto.raitings.split('|').map(raiting => +raiting))
+				this.getRatingFilter(dto.ratings.split('|').map(raiting => +raiting))
 			)
 
 		if (dto.minPrice || dto.maxPrice)
@@ -106,12 +106,12 @@ export class ProductService {
 		}
 	}
 
-	private getRaitingFilter(raiting: number[]): Prisma.ProductWhereInput {
+	private getRatingFilter(rating: number[]): Prisma.ProductWhereInput {
 		return {
 			reviews: {
 				some: {
 					rating: {
-						in: raiting
+						in: rating
 					}
 				}
 			}

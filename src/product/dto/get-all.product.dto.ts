@@ -19,7 +19,7 @@ export class GetAllProductDto extends PaginationDto {
 
 	@IsOptional()
 	@IsString()
-	raitings?: string
+	ratings?: string
 
 	@IsOptional()
 	@IsString()
